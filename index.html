@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%=htmlWebpackPlugin.options.title%></title>
+    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry%>"></script>
+</head>
+<body>
+<%= htmlWebpackPlugin.options.date%>
+<%for(var key in htmlWebpackPlugin){%>
+    <%=key%>:<%=JSON.stringify(htmlWebpackPlugin[key])%>
+<%}%>
+
+<script src="<%= htmlWebpackPlugin.files.chunks.a.entry%>"></script>
+<!--<script type="text/javascript" src="bundle.js"></script>-->
+</body>
+</html>
