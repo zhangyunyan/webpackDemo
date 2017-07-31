@@ -7,7 +7,9 @@ module.exports={
 
     entry:{
         main:"./src/script/main.js",
-        a:"./src/script/a.js"
+        a:"./src/script/a.js",
+        b:"./src/script/b.js",
+        c:"./src/script/c.js"
     },
     output:{
         path: __dirname+'/dist',
@@ -17,16 +19,31 @@ module.exports={
     },
     plugins:[
         new htmlWebpackPlugin({
-            filename:'index.html',
+            filename:'a.html',
             template:'index.html',
             // inject:'head',
+            // inject:'body',
             inject:false,
-            title:'webpack is good',
-            date:new Date(),
-            minify:{
-                removeComments:true,
-                collapseWhitespace:true
-            }
+            title:'a.html',
+            // chunks:['a','main']
+        }),
+        new htmlWebpackPlugin({
+            filename:'b.html',
+            template:'index.html',
+            // inject:'head',
+            // inject:'body',
+            inject:false,
+            title:'b.html',
+            // chunks:['b','main']
+        }),
+        new htmlWebpackPlugin({
+            filename:'c.html',
+            template:'index.html',
+            // inject:'head',
+            // inject:'body',
+            inject:false,
+            title:'c.html',
+            // chunks:['c','main']
         })
     ]
 }

@@ -279,3 +279,79 @@ plugins:[
     ]
 ```
 
+## htmlWebpackPlugin插件生成多页面
+```
+plugins:[
+        new htmlWebpackPlugin({
+            filename:'a.html',
+            template:'index.html',
+            // inject:'head',
+            inject:false,
+            title:'a.html'
+        }),
+        new htmlWebpackPlugin({
+            filename:'b.html',
+            template:'index.html',
+            // inject:'head',
+            inject:false,
+            title:'b.html'
+        }),
+        new htmlWebpackPlugin({
+            filename:'c.html',
+            template:'index.html',
+            // inject:'head',
+            inject:false,
+            title:'c.html'
+        })
+    ]
+```
+
+# 如何通过一个模板生成多页面
+## chunks注入的
+### 全部注入
+```
+new htmlWebpackPlugin({
+            filename:'c.html',
+            template:'index.html',
+            inject:'body',
+            title:'c.html'
+        })
+```
+### 注入b、main
+```
+new htmlWebpackPlugin({
+            filename:'b.html',
+            template:'index.html',
+            inject:'body',
+            title:'b.html',
+            chunks:['b','main']
+            })
+```
+### 注入a、main
+```
+new htmlWebpackPlugin({
+            filename:'a.html',
+            template:'index.html',
+            inject:'body',
+            title:'a.html',
+            chunks:['a','main']
+            })
+```
+## excludeChuncks排除这些注入其他
+### 注入b c
+```
+new htmlWebpackPlugin({
+            filename:'a.html',
+            template:'index.html',
+            inject:'body',
+            title:'a.html',
+            excludeChunks:['a','main']
+            })
+```
+
+## 把页面性能达到极致（把初始化的脚本直接切入到页面，不以链接的形式引入页面）
+```
+//目前都是链接的形式，这样会增加页面的http请求
+<script type="text/javascript" src="http://zhangyunyan.github.io/js/main.js"></script><script type="text/javascript" src="http://zhangyunyan.github.io/js/a.js"></script>
+```
+### htmlWebpackPlugin之前并没有考虑到这一点，后来有人在github上不断的提需求(compilation.assets其实是webpack打包生成的对象,通过传文件名的路径，就可以拿到文件的索引，通过.source就可以拿到文件的内容)

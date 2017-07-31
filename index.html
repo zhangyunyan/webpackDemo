@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title><%=htmlWebpackPlugin.options.title%></title>
-    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry%>"></script>
+    <script type="text/javascript">
+        <%=compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source()%>
+    </script>
 </head>
 <body>
-<%= htmlWebpackPlugin.options.date%>
-<%for(var key in htmlWebpackPlugin){%>
-    <%=key%>:<%=JSON.stringify(htmlWebpackPlugin[key])%>
+<%for(var k in htmlWebpackPlugin.files.chunks){%>
+<%if(k!=='main')%>
+<script type="text/javascript" src="<%=htmlWebpackPlugin.files.chunks[k].entry%>"></script>
 <%}%>
-
-<script src="<%= htmlWebpackPlugin.files.chunks.a.entry%>"></script>
-<!--<script type="text/javascript" src="bundle.js"></script>-->
+<%}%>
 </body>
 </html>
